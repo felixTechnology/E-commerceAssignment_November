@@ -67,6 +67,12 @@ class Products{
 //12. UI Class to Display the product. It will get the items been returned from product class or getting them from localStorage
 class UI {
 
+    /*1. Overview so far
+    * 1. I am geeting the product information from the COMContentLoaded EvenListener through the products.getProduct()...
+    * 2.Then I used the UI display product method where I get an array
+    * 3. Then I loop over this array for each and every item in the array and add this to the result variable as a string, and keep on adding and overriding
+    * 4. At the end I set the property on a productDom.
+    * */
       //this method will get an array
       displayProducts(products){
           //console.log(products)
@@ -97,6 +103,21 @@ class UI {
 //13. Actual localStorage Class
 class Storage{
 
+    /*1. Overview so far
+   * a. we set our entire product up to load in localStorage by creating a static method
+   * b. we stored by calling the METHOD in the event listener
+   *
+   * */
+
+
+    //creating a static method so we can use it without instantiating the class
+    /* 1. passing my products array to the method which is a parameter
+    * 2. Access the localStorage and setItem to be stored in it. Parse it as a string by giving it a Property name and the products to be stored
+    *
+    * */
+    static saveProducts(products){
+        localStorage.setItem("products", JSON.stringify(products));
+    }
 
 }
 
@@ -113,11 +134,19 @@ document.addEventListener("DOMContentLoaded", () =>{
     const ui = new UI();
     const products = new Products();
 
-    //get all products.
+    //get all products using an ajax call.
     /*Get the product which is my instance and the method. And pass the then() method to console.log whatever i'm getting*/
     /*products.getProducts().then(data => console.log(data))*/
     /*products.getProducts().then(products => console.log(products));*/
-    products.getProducts().then(products =>ui.displayProducts(products));
+   /* products.getProducts().then(products =>ui.displayProducts(products));
+    Storage.saveProducts(Products);*/
 
-})
+    products.getProducts().then( products => {
+
+        ui.displayProducts(products)
+        Storage.saveProducts(products);
+    });
+
+
+});
 
