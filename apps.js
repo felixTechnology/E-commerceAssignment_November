@@ -1,16 +1,123 @@
 //selecting the cart button
-const cartBtn =  document.querySelector('.cart-btn');
-const closeCartBtn =  document.querySelector('.close-cart');
-const clearCartBtn =  document.querySelector('.clear-btn');
-const cartDOM =  document.querySelector('.cart');
-const cartOverlay =  document.querySelector('.cart-overlay');
-const cartItems =  document.querySelector('.cart-items');
-const cartTotal =  document.querySelector('.cart-total');
-const cartContent =  document.querySelector('.cart-content');
-const productDoM =  document.querySelector('.products-center');
+const cartBtn =  document.querySelector('.cart-btn');/*1*/
+const closeCartBtn =  document.querySelector('.close-cart');/*2*/
+const clearCartBtn =  document.querySelector('.clear-btn');/*3*/
+const cartDOM =  document.querySelector('.cart');/*4*/
+const cartOverlay =  document.querySelector('.cart-overlay');/*5*/
+const cartItems =  document.querySelector('.cart-items');/*6*/
+const cartTotal =  document.querySelector('.cart-total');/*7*/
+const cartContent =  document.querySelector('.cart-content');/*8*/
+const productDoM =  document.querySelector('.products-center');/*9*/
 
 
-//CART: This will be our main cart.Where we will be placing information.Getting information from localStorage
+//10. CART: This will be our main cart.Where we will be placing information.Getting information from localStorage
 const cart =  [];
 
-//
+//11. creating classes and methods. Will be responsible for getting the products locally.
+class Products{
+
+    /*method to get the product
+    *
+    *
+    * */
+
+   async getProducts(){
+        //using fetch method. With this feature we can use Async-wait(this will always return a promise) .
+        // We can also use (await)-this will allow us to wait till the (promise) is settled then we return a result
+
+       try{
+           let result;
+           result = await fetch('products.json');
+           let data;
+           data = await result.json();
+           /*return  data;*/
+           //now,knowing that the data returns the object as above (return data), I will pass the property (items) which is the name of the json data object
+           let products = data.items; //products is holding the array of product items
+           //will use the map method (map()) since I have an array of product instead arrange the json properly
+           products = products.map(item => {
+               let fields = item.fields;
+               const {title,price} = fields;
+               const{id} = item.sys;
+               const image = item.fields.image.fields.file.url;
+               return{title,price,id,image}
+           })
+           return products;
+
+
+
+       }catch(error){
+           console.log(error)
+       }
+
+
+
+
+
+    }
+
+    get(){
+
+    }
+
+
+
+}
+
+
+//12. UI Class to Display the product. It will get the items been returned from product class or getting them from localStorage
+class UI {
+
+      //this method will get an array
+      displayProducts(products){
+          //console.log(products)
+          let result = '';
+          products.forEach(product => {//forEach and every product get the ff properties
+              result += `
+                 <article class="product">
+                                <div class="img-container">
+                                    <img src="${product.image}" class="product-img">
+                                    <button class="bag-btn" data-id=${product.id}>
+                                        <i class="fas fa-shopping-cart"></i>
+                                        Keep in Basket
+                                    </button>
+                                </div>
+
+                                 <h3>${product.title}</h3>
+                                 <!--<h4>GHC 50</h4>-->
+                                 <h4>GHC ${product.price}</h4>
+                         </article>`;
+          });
+
+          productDoM.innerHTML=result;
+      };
+
+
+}
+
+//13. Actual localStorage Class
+class Storage{
+
+
+}
+
+
+/*14.Event Listener
+* The evenListener is given the name DOMContentLoaded.So when the content loads, we call the callBackFunction
+* using the arrow function syntax ()=>{}, where we will be calling our function
+* Will class instances of the classes in the call back function
+* Storage class wont have instance in the callBackFunction because will use static methods in that class.
+*
+*  */
+
+document.addEventListener("DOMContentLoaded", () =>{
+    const ui = new UI();
+    const products = new Products();
+
+    //get all products.
+    /*Get the product which is my instance and the method. And pass the then() method to console.log whatever i'm getting*/
+    /*products.getProducts().then(data => console.log(data))*/
+    /*products.getProducts().then(products => console.log(products));*/
+    products.getProducts().then(products =>ui.displayProducts(products));
+
+})
+
