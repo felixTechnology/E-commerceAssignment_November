@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shop Centre</title>
+
+    <!--Fontawesome ---------------------->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+     <!-------------------------------------Navbar------------------------------------------->
+
+        <nav class="navbar">
+            <div class="navbar-center">
+                <span class="nav-icon">
+                    <i class="fas fa-bars"></i>
+                </span>
+                <img class="img1" src="./images/ganesha.svg" alt="shop logo">
+
+                <div class="cart-btn">
+                    <span class="nav-icon">
+                         <i class="fas fa-cart-plus"></i>
+                    </span>
+                    <div class="cart-items">0</div>
+                </div>
+
+            </div>
+
+        </nav>
+     <!-------------------------------------End of Navbar------------------------------------------->
+     <!-------------------------------------Start Hero------------------------------------------->
+            <header class="hero">
+                <div class="banner">
+                    <h1 class="banner-title">General Goods</h1>
+                     <!--button.banner-btn{Shop Item Now}-->
+                    <button class="banner-btn">Shop Item Now</button>
+                </div>
+            </header>
+
+
+     <!-------------------------------------End of Hero------------------------------------------->
+
+     <!-------------------------------------Product------------------------------------------->
+         <section class="products">
+                 <div class="section-title">
+                     <h2>Our Offer</h2>
+                 </div>
+                  <div class="products-center">
+                      <!--------single Product----------->
+                         <article class="product">
+                                <div class="img-container">
+                                    <img src="./images/fruit3.jpg" alt="products" class="product-img">
+                                    <button class="bag-btn" data-id="1">
+                                        <i class="fas fa-shopping-cart"></i>
+                                        Keep in Basket
+                                    </button>
+                                </div>
+
+                                 <h3>grapes fruit</h3>
+                                 <h4>GHC 50</h4>
+                         </article>
+                      <!--------End of single Product----------->
+                      
+
+
+
+                  </div>
+         </section>
+
+     <!-------------------------------------End Product------------------------------------------->
+
+     <!-------------------------------------Cart------------------------------------------->
+
+           <div class="cart-overlay">
+               <div class="cart">
+               <span class="close-cart">
+                   <i class="fas fa-window-close"></i>
+               </span>
+               <h2>Your basket Detail</h2>
+               <div class="cart-content">
+                   <!---------cart-item------------>
+                            <div class="cart-item">
+
+                                <img src="./images/fruit1.jpg" alt="product">
+                                <div>
+                                    <h4>Carrot</h4>
+                                </div>
+
+                            </div>
+                   <!---------End cart-item------------>
+
+
+               </div>
+           </div>
+           </div>
+
+     <!-------------------------------------End Cart------------------------------------------->
+
+
+
+
+
+
+
+
+     <script src="apps.js"></script>
+</body>
+</html>
