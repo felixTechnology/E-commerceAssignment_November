@@ -7,7 +7,7 @@
     --mainGrey: #ececec;
     --mainBlue: #9ae1ff;
     --mainSpacing: 0.2rem;
-    --mainTransition: all 0.3s linear;
+
 }
 * {
     margin: 0;
@@ -91,14 +91,14 @@ body {
     text-transform: uppercase;
     letter-spacing: var(--mainSpacing);
     font-size: 1rem;
-    background: var(--mainBlue);
+    background: #5DADE2;
     color: var(--mainBlack);
     border: 1px solid var(--mainBlue);
     transition: var(--mainTransition);
     cursor: pointer;
 }
 .banner-btn:hover {
-    background: transparent;
+    background: #5DADE2;
     color: var(--mainBlue);
 }
 /* --------------- End of Hero ---------------- */
@@ -214,23 +214,23 @@ body {
     width: 100%;
     height: 100%;
     transition: var(--mainBlue);
-    background: rgba(0,0,2.5,1.5);
-    opacity: 0.5;
+    background-color: background: rgb(231, 226, 221);
+
     z-index: 5;
-    /*visibility: hidden;*/
+    visibility: hidden;
 }
 .cart {
     position: fixed;
     top: 0;
-    right: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     overflow: scroll;
     z-index: 3;
-    background: rgb(231, 226, 221);
+    background: var(--mainBlue);
     padding: 1.5rem;
     transition: var(--mainTransition);
-    /*transform: translateX(100%);*/
+    transform: translateX(100%);
 }
 .showCart {
     transform: translateX(0);
@@ -285,7 +285,7 @@ body {
 }
 .fa-chevron-up,
 .fa-chevron-down {
-    color: var(--mainBlue);
+    color: black;
     cursor: pointer;
 }
 /*---------- End of Cart Item -------------------- */
