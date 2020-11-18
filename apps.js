@@ -1,7 +1,7 @@
 //selecting the cart button
 const cartBtn =  document.querySelector('.cart-btn');/*1*/
 const closeCartBtn =  document.querySelector('.close-cart');/*2*/
-const clearCartBtn =  document.querySelector('.clear-btn');/*3*/
+const clearCartBtn =  document.querySelector('.clear-cart');/*3*/
 const cartDOM =  document.querySelector('.cart');/*4*/
 const cartOverlay =  document.querySelector('.cart-overlay');/*5*/
 const cartItems =  document.querySelector('.cart-items');/*6*/
@@ -144,6 +144,7 @@ class UI {
                     //display cart items
                     this.addCartItem(cartItem);
                     //show the cart
+                    this.showCart();
 
                 })
             }
@@ -154,39 +155,138 @@ class UI {
     setCartValues(cart){
        let tempTotal = 0;
        let itemsTotal =0;
-       cart.map(item=> {
+       cart.map(item => {
            tempTotal += item.price * item.amount;
            itemsTotal += item.amount;
        })
-        cartTotal.innerHTML = parseFloat(tempTotal.toFixed(2));
-       cartItems.innerHTML = itemsTotal;
+        cartTotal.innerText = parseFloat(tempTotal.toFixed(2));
+       cartItems.innerText = itemsTotal;
        //console.log(cartTotal,cartItems)
 
     }
 
     //getting item dynamically
     addCartItem(item){
-        const div = document.createElement('div');
-        div.classList.add('cart-item');
-        div.innerHTML = `
-       
-         <!--<img src="./images/fruit1.jpg" alt="product">-->
-         <img src="${item.image}" alt="product">
+        const div = document.createElement("div");
+        div.classList.add("cart-item");
+        div.innerHTML =  `<img src="${item.image}" alt="product" />
                                 <div>
                                     <!--<h4>Carrot</h4>-->
                                     <h4>${item.title}</h4>
                                     <!--<h5>GHC 50</h5>-->
                                     <h5>GHC ${item.price}</h5>
-                                    <span class="remove-item">remove</span>
+                                    <span class="remove-item" data-id=${item.id}>remove</span>
                                 </div>
                                 <div>
-                                    <i class="fas fa-chevron-up" style="font-size:24px;color:black"></i>
-                                    <p class="item-amount">1</p>
-                                    <i class="fas fa-chevron-down" style="font-size:24px;color:black"></i>
+                                    <i class="fas fa-chevron-up" style="font-size:24px;color:black" data-id=${item.id} ></i>
+                                    <!--<p class="item-amount">1</p>-->
+                                    <p class="item-amount">${item.amount}</p>
+                                    <i class="fas fa-chevron-down" style="font-size:24px;color:black" data-id=${item.id}></i>
 
-                                </div>
-       
-       `;
+                                </div>`;
+        cartContent.appendChild(div);
+       // console.log(cartContent)
+    }
+
+    showCart(){
+        cartOverlay.classList.add('transparentBcg');
+        cartDOM.classList.add('showCart');
+
+
+    }
+
+    setupAPP(){
+        cart = Storage.getCart();
+        this.setCartValues(cart);
+        this.populateCart(cart);
+        cartBtn.addEventListener('click',this.showCart);
+        closeCartBtn.addEventListener('click', this.hideCart)
+
+    }
+
+  populateCart(cart){
+        cart.forEach( item => this.addCartItem(item));
+
+    }
+    hideCart(){
+        cartOverlay.classList.remove('transparentBcg');
+        cartDOM.classList.remove('showCart');
+    }
+    cartLogic(){
+
+        //clear cart Button
+        /*clearCartBtn.addEventListener('click', this.clearCart)*/
+        clearCartBtn.addEventListener('click', ()=>{
+            this.clearCart();
+        })
+
+        //cart Functionality
+
+        cartContent.addEventListener('click', event=>{
+            //console.log(event.target);
+
+            if (event.target.classList.contains('remove-item')){
+                let removeItem = event.target;
+                //console.log(removeItem);
+                let id = removeItem.dataset.id;
+                cartContent.removeChild(removeItem.parentElement.parentElement);
+                /*console.log(removeItem.parentElement.parentElement)*/
+                this.removeItem(id);
+
+            }else if (event.target.classList.contains("fa-chevron-up")){
+                 let addAmount = event.target;
+                 let id = addAmount.dataset.id;
+                 //console.log(addAmount)
+                let tempItem = cart.find(item=> item.id === id);
+                tempItem.amount = tempItem.amount + 1;
+                Storage.saveCart(cart);
+                this.setCartValues(cart);
+                addAmount.nextElementSibling.innerText = tempItem.amount;
+
+            }else if (event.target.classList.contains("fa-chevron-down")){
+                let lowerAmount = event.target;
+                let id =  lowerAmount.dataset.id;
+                let tempItem = cart.find(item => item.id === id);
+                tempItem.amount = tempItem.amount - 1;
+                if (tempItem.amount > 0){
+                    Storage.saveCart(cart);
+                    this.setCartValues(cart);
+                    lowerAmount.previousElementSibling.innerText = tempItem.amount;
+
+                }else
+                {
+                    cartContent.removeChild(lowerAmount.parentElement.parentElement);
+                    this.removeItem(id);
+                }
+
+            }
+        })
+    }
+
+    clearCart(){
+        //console.log(this)
+
+        let cartItems = cart.map(item => item.id);
+        //console.log(cartItems);
+        cartItems.forEach(id => this.removeItem(id));
+        console.log(cartContent.children);
+        while (cartContent.children.length>0){
+            cartContent.removeChild(cartContent.children[0])
+        }
+        this.hideCart();
+    }
+
+    removeItem(id){
+        cart = cart.filter(item => item.id !==id);
+        this.setCartValues(cart);
+        Storage.saveCart(cart);
+        let button = this.getSingleButton(id);
+        button.disabled=false;
+        button.innerHTML = `<i class="fas fa-shopping-cart"></i>Keep in Busket`
+    }
+
+    getSingleButton(id){
+        return buttonsDOM.find(button => button.dataset.id === id)
     }
 }
 
@@ -220,6 +320,12 @@ class Storage{
       static saveCart(){
         localStorage.setItem('cart', JSON.stringify(cart));
       }
+
+      static getCart(){
+
+         return  localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
+
+      }
 }
 
 
@@ -235,6 +341,9 @@ document.addEventListener("DOMContentLoaded", () =>{
     const ui = new UI();
     const products = new Products();
 
+    //setUP App
+    ui.setupAPP();
+
     //get all products using an ajax call.
     /*Get the product which is my instance and the method. And pass the then() method to console.log whatever i'm getting*/
     /*products.getProducts().then(data => console.log(data))*/
@@ -242,13 +351,16 @@ document.addEventListener("DOMContentLoaded", () =>{
    /* products.getProducts().then(products =>ui.displayProducts(products));
     Storage.saveProducts(Products);*/
 
-    products.getProducts().then( products => {
+    products
+        .getProducts()
+        .then( products => {
 
         ui.displayProducts(products)
         Storage.saveProducts(products);
     }).then(()=> {//this means run the then() when i'm done running the display product
 
         ui.getBagButtons();
+        ui.cartLogic();
 
     });
 
