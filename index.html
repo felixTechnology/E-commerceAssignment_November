@@ -1,55 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Shop Centre</title>
 
     <!--Fontawesome ---------------------->
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+        crossorigin="anonymous" />
 
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-     <!-------------------------------------Navbar------------------------------------------->
+    <!-------------------------------------Navbar------------------------------------------->
 
-        <nav class="navbar">
-            <div class="navbar-center">
+    <nav class="navbar">
+        <div class="navbar-center">
+            <span class="nav-icon">
+                <i class="fas fa-bars"></i>
+            </span>
+            <img class="img1" src="./images/ganesha.svg" alt="shop logo">
+
+            <div class="cart-btn">
                 <span class="nav-icon">
-                    <i class="fas fa-bars"></i>
+                    <i class="fas fa-cart-plus"></i>
                 </span>
-                <img class="img1" src="./images/ganesha.svg" alt="shop logo">
-
-                <div class="cart-btn">
-                    <span class="nav-icon">
-                         <i class="fas fa-cart-plus"></i>
-                    </span>
-                    <div class="cart-items">0</div>
-                </div>
-
+                <div class="cart-items">0</div>
             </div>
 
-        </nav>
-     <!-------------------------------------End of Navbar------------------------------------------->
-     <!-------------------------------------Start Hero------------------------------------------->
-            <header class="hero">
-                <div class="banner">
-                    <h1 class="banner-title">General Goods</h1>
-                     <!--button.banner-btn{Shop Item Now}-->
-                    <button class="banner-btn">Shop Item Now</button>
-                </div>
-            </header>
+        </div>
+
+    </nav>
+    <!-------------------------------------End of Navbar------------------------------------------->
+    <!-------------------------------------Start Hero------------------------------------------->
+    <header class="hero">
+        <div class="banner">
+            <h1 class="banner-title">General Goods</h1>
+            <!--button.banner-btn{Shop Item Now}-->
+            <button class="banner-btn">Shop Item Now</button>
+            <button class="banner-btn"> Checkout</button>
+        </div>
+    </header>
 
 
-     <!-------------------------------------End of Hero------------------------------------------->
+    <!-------------------------------------End of Hero------------------------------------------->
 
-     <!-------------------------------------Product------------------------------------------->
-         <section class="products">
-                 <div class="section-title">
-                     <h2>Our Offer</h2>
-                 </div>
-                  <div class="products-center">
-                      <!--------single Product----------->
-                        <!-- <article class="product">
+    <!-------------------------------------Product------------------------------------------->
+    <section class="products">
+        <div class="section-title">
+            <h2>Our Offer</h2>
+        </div>
+        <div class="products-center">
+            <!--------single Product----------->
+            <!-- <article class="product">
                                 <div class="img-container">
                                     <img src="./images/fruit3.jpg" alt="products" class="product-img">
                                     <button class="bag-btn" data-id="1">
@@ -61,27 +65,27 @@
                                  <h3>grapes fruit</h3>
                                  <h4>GHC 50</h4>
                          </article>-->
-                      <!--------End of single Product----------->
-                      
+            <!--------End of single Product----------->
 
 
 
-                  </div>
-         </section>
 
-     <!-------------------------------------End Product------------------------------------------->
+        </div>
+    </section>
 
-     <!-------------------------------------Cart------------------------------------------->
+    <!-------------------------------------End Product------------------------------------------->
 
-           <div class="cart-overlay">
-               <div class="cart">
-               <span class="close-cart">
-                   <i class="fas fa-window-close"></i>
-               </span>
-               <h2>Your basket Detail</h2>
-               <div class="cart-content">
-                   <!---------cart-item------------>
-                            <!--<div class="cart-item">
+    <!-------------------------------------Cart------------------------------------------->
+
+    <div class="cart-overlay">
+        <div class="cart">
+            <span class="close-cart">
+                <i class="fas fa-window-close"></i>
+            </span>
+            <h2>Your basket Detail</h2>
+            <div class="cart-content">
+                <!---------cart-item------------>
+                <!--<div class="cart-item">
 
                                 <img src="./images/fruit1.jpg" alt="product">
                                 <div>
@@ -97,26 +101,131 @@
                                 </div>
 
                             </div>-->
-                   <!---------End cart-item------------>
+                <!---------End cart-item------------>
 
 
-               </div>
-                    <div class="cart-footer">
-                        <h3>Your Total : GHC <span class="cart-total">0</span></h3>
-                        <button class="clear-cart banner-btn">Empty Cart</button>
+            </div>
+            <div class="cart-footer">
+                <h3>Your Total : GHC <span class="cart-total">0</span></h3>
+                <button class="clear-cart banner-btn">Empty Cart</button>
+                <button class="clear-cart banner-btn">Checkout</button>
+
+            </div>
+        </div>
+    </div>
+
+    <!-------------------------------------End Cart------------------------------------------->
+
+    <!-- Trigger/Open The Modal -->
+    <!-- <button id="myBtn">Open Modal</button> -->
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal"></div>
+    <!-- <div id="myModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Checkout</h2>
+            </div>
+            <div class="modal-body">
+                <p>Some text in the Modal Body</p>
+                <p>Some other text...</p>
+            </div>
+            <div class="modal-footer">
+                <h3>Modal Footer</h3>
+            </div>
+        </div>
+    </div> -->
+
+
+
+    <script src="apps.js"></script>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script>
+        $('.clear-cart').click(function () {
+            //alert($(this).html());
+            /****************
+             * If Cart button is Checkout
+            *****************/
+            let cartTotalAmt = $('.cart-total').html();
+            let cartContent = document.querySelector('.cart-content');
+
+            //console.log(cartTotalAmt);
+            if ($(this).html() == 'Checkout') {
+                //alert('Checkout is active');
+                if (cartTotalAmt == 0) {
+                    console.log("cart-total = 0 ");
+                }
+                else if (cartTotalAmt != 0) {
+                    console.log("cart-total =  " + cartTotalAmt);
+
+                    /******************
+                     * Show modal *****
+                     ******************/
+                    // Get the modal
+                    var modal = document.getElementById("myModal");
+                    modal.innerHTML =
+                        `<div class="modal-content">
+                        <div class="modal-header">
+                            <span class="close">&times;</span>
+                            <h3>Your basket Detail</h3>
+                        </div>
+                        <div class="modal-body" style="position: relative;">                            
+                            ${cartContent}
+                            <p>Some text in the Modal Body</p>
+                            <p>Some other text...</p>
+                            KIS IS IS DAFDKAKDKADKD
+
+                            <div style="margin: 50px 0 50px 0; width:100%; "></div>
+
+                        <div style="margin: 0 auto; width:70%; background:#f7f7f7; position: relative; height:35vh; overflow-y:scroll;">
+                                <form id="checkoutFrm" action="">
+                                    <div style="float:left">
+                                    <label for="fname">First name:</label><br>
+                                    <input type="text" id="fname" name="fname"><br>
+                                    <label for="lname">Last name:</label><br>
+                                    <input type="text" id="lname" name="lname"><br>
+                                    <label for="emailAddrs">Email:</label><br>
+                                    <input type="text" id="emailAddrs" name="emailAddrs"><br>                        
+                                    <label for="PhoneNumber">Phone:</label><br>
+                                    <input type="text" id="PhoneNumber" name="PhoneNumber"><br>
+                                    </div>
+                                    <div style="float:right">
+                                    <label for="PAddress">Postal Address:</label><br>
+                                    <input type="text" id="PAddress" name="PAddress"><br>
+                                    <label for="Country">Country:</label><br>
+                                    <input type="text" id="Country" name="Country"><br>
+                                    <br><br>
+
+                                    <input id="subMit" name="subMit" value="Submit" style="width:150px; padding: 8px 0 8px 0; text-align:center;">
+                                    </div>
+                            </form> 
+
+                            </div>
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <!-- <h3>Modal Footer</h3>-->
+                        </div>
                     </div>
-           </div>
-           </div>
+                        `;
+                    // Get the <span> element that closes the modal
+                    var span = document.getElementsByClassName("close")[0];
 
-     <!-------------------------------------End Cart------------------------------------------->
+                    modal.style.display = "block";
 
+                    span.onclick = function () {
+                        modal.style.display = "none";
+                    }
 
+                }//else if (cartTotalAmt != 0)
+            }
+            // else if ($(this).html() == 'Empty Cart') {
+            //     alert('Empty Cart is active')
+            // }
+        });
+    </script>
 
-
-
-
-
-
-     <script src="apps.js"></script>
 </body>
+
 </html>
